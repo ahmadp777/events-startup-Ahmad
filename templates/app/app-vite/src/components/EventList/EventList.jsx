@@ -6,7 +6,7 @@ import EventCard from "../EventCard/EventCard.jsx";
 
 export default function EventList() {
   return (
-    <ul>
+    <ul className="event-list">
       <EventCard />
     </ul>
   );
