@@ -4,10 +4,16 @@ import EventCard from "../EventCard/EventCard.jsx";
 // TODO: add a "Buy ticket" button to each event card
 // TODO: replace the mock data import with a fetch call to GET /events
 
-export default function EventList() {
+export default function EventList({ events }) {
+  if (events.length === 0) {
+    return <p>No events found.</p>;
+  }
+
   return (
     <ul className="event-list">
-      <EventCard />
+      {events.map((event) => (
+        <EventCard key={event.id} event={event} />
+      ))}
     </ul>
   );
 }
