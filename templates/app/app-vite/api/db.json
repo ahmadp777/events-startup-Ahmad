@@ -1,5 +1,11 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "ahmad.pakmehr@gmail.com",
+      "password": "$2a$10$JAMp.rU/kuR7cgTl/Iy6ReXtrWNHXN9ZVf95fwS7Mo.OyDh/PbtoS",
+      "id": 1
+    }
+  ],
   "events": [
     {
       "id": 1,
