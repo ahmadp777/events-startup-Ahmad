@@ -20,6 +20,11 @@ export default function Register() {
     setError(null);
     setSuccess("");
 
+    if (password.length < 6) {
+      setError("password should be at least 6 characters");
+      return;
+    }
+
     try {
       await register(email, password);
       setSuccess("Registration successful. Redirecting...");
@@ -49,6 +54,7 @@ export default function Register() {
         <input
           id="register-password"
           type="password"
+          placeholder="at least 6 characters"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

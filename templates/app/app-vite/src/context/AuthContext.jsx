@@ -20,11 +20,17 @@ export function AuthProvider({ children }) {
       body: JSON.stringify({ email, password }),
     });
 
+    const data = await response.json().catch(() => ({}));
+
     if (!response.ok) {
+      throw new Error(data.message || "Invalid email or password");
+    }
+
+    const { accessToken, user } = data;
+    if (!accessToken || !user) {
       throw new Error("Invalid email or password");
     }
 
-    const { accessToken, user } = await response.json();
     persist(accessToken, user);
   }
 
