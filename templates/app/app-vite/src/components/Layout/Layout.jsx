@@ -1,9 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import vioappslogo from "../../assets/vioapps-logo.png";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useCart } from "../../context/CartContext.jsx";
 
 export default function Layout() {
   const { user, logout } = useAuth();
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <div
@@ -13,7 +16,18 @@ export default function Layout() {
         flexDirection: "column",
       }}
     >
-      <header>
+      <header
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 1000,
+          background: "#f5f7fb",
+          borderBottom: "1px solid #dbe2ef",
+          boxShadow: "0 2px 7px rgba(0, 0, 0, 0.2)",
+        }}
+      >
         <nav
           style={{
             width: "100%",
@@ -28,7 +42,7 @@ export default function Layout() {
             src={vioappslogo}
             alt="VioApps logo"
             className="logo"
-            width={170}
+            width={110}
             style={{ padding: "20px" }}
           />
           {/* Navigation links go here — e.g. link to event list, cart, login */}
@@ -37,6 +51,9 @@ export default function Layout() {
           </Link>
           <Link to="/events" className="link">
             Events
+          </Link>
+          <Link to="/cart" className="link">
+            Cart ({cartCount})
           </Link>
 
           {user && (
@@ -55,7 +72,7 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, width: "100%", padding: "10px 20px" }}>
+      <main style={{ flex: 1, width: "100%", padding: "150px 20px 10px" }}>
         <section style={{ width: "100%", maxWidth: "700px", margin: "0 auto" }}>
           <Outlet />
         </section>
