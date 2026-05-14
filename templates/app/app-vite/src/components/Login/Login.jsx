@@ -3,13 +3,15 @@
 // TODO: show a clear error message if login fails
 // TODO: redirect to the event list on success
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useState } from "react";
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from?.pathname || "/events";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -23,7 +25,7 @@ export default function Login() {
     try {
       await login(email, password);
       setSuccess("Login successful. Redirecting...");
-      navigate("/events");
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message || "Login failed");
     }
@@ -56,6 +58,14 @@ export default function Login() {
         />
 
         <button type="submit">Sign in</button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/register", { state: { from: location.state?.from } })}
+          style={{ marginLeft: "12px" }}
+        >
+          Register
+        </button>
       </form>
 
       {error && <p style={{ color: "#b91c1c", marginTop: "12px" }}>{error}</p>}

@@ -3,13 +3,15 @@
 // TODO: show a clear error message if registration fails
 // TODO: redirect to the event list on success
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useState } from "react";
 
 export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from?.pathname || "/events";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -28,7 +30,7 @@ export default function Register() {
     try {
       await register(email, password);
       setSuccess("Registration successful. Redirecting...");
-      navigate("/events");
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message || "Registration failed");
     }
