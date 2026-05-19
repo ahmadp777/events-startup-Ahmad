@@ -59,6 +59,12 @@ export default function Layout() {
           {user && (
             <>
               <span>{user.email}</span>
+              <Link to="/account" className="link">
+                Account
+              </Link>
+              <Link to="/orders" className="link">
+                Orders
+              </Link>
               <button onClick={logout}>Sign out</button>
             </>
           )}

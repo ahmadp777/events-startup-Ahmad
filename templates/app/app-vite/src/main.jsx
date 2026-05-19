@@ -12,6 +12,8 @@ import "./main.css";
 import CartPage from "./components/CartPage/CartPage.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
+import AccountPage from "./components/AccountPage/AccountPage.jsx";
+import OrdersPage from "./components/OrdersPage/OrdersPage.jsx";
 // Cart model: cart items are stored in localStorage via CartContext (no backend needed).
 // At checkout, the cart is POSTed to POST /api/orders and then cleared.
 // CartContext should follow the same pattern as AuthContext — see that file for reference.
@@ -29,6 +31,22 @@ const router = createBrowserRouter([
         element: (
           <RequireAuth>
             <CartPage />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "account",
+        element: (
+          <RequireAuth>
+            <AccountPage />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "orders",
+        element: (
+          <RequireAuth>
+            <OrdersPage />
           </RequireAuth>
         ),
       },
