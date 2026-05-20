@@ -4,6 +4,11 @@
       "email": "ahmad.pakmehr@gmail.com",
       "password": "$2a$10$JAMp.rU/kuR7cgTl/Iy6ReXtrWNHXN9ZVf95fwS7Mo.OyDh/PbtoS",
       "id": 1
+    },
+    {
+      "email": "test_283797693@example.com",
+      "password": "$2a$10$4HiQ91.rENnduadIf59f6OSKtswKPobcihWQfmNaE4TqzfHG8NBnm",
+      "id": 2
     }
   ],
   "events": [
@@ -138,5 +143,20 @@
       "category": "Workshop"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "createdAt": "2026-05-20T20:39:01.841Z",
+      "userId": 1,
+      "items": [
+        {
+          "eventId": 4,
+          "name": "TypeScript Deep Dive",
+          "price": 89,
+          "quantity": 2
+        }
+      ],
+      "total": 178,
+      "id": 1
+    }
+  ]
 }

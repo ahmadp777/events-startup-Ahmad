@@ -1,7 +1,3 @@
-// TODO: build a register form with relevant fields
-// TODO: call register(email, password) from useAuth() on submit
-// TODO: show a clear error message if registration fails
-// TODO: redirect to the event list on success
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -14,6 +10,7 @@ export default function Register() {
   const redirectTo = location.state?.from?.pathname || "/events";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
 
@@ -55,13 +52,21 @@ export default function Register() {
         <label htmlFor="register-password">Password</label>
         <input
           id="register-password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="at least 6 characters"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           style={{ width: "100%", margin: "8px 0 14px", padding: "8px" }}
         />
+
+        <button
+          type="button"
+          onClick={() => setShowPassword((previousValue) => !previousValue)}
+          style={{ marginRight: "20px" }}
+        >
+          {showPassword ? "Hide password" : "Show password"}
+        </button>
 
         <button type="submit">Create account</button>
       </form>

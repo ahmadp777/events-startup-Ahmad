@@ -35,14 +35,10 @@ export function AuthProvider({ children }) {
   }
 
   async function register(email, password) {
-    // TODO: POST to api("/register") with { email, password }
-    // TODO: if the response is not ok, throw an error
-    // TODO: destructure { accessToken, user } from the response JSON
-    // TODO: call `persist` with accessToken and user to save the session
     const response = await fetch(api("/register"), {
-      method : "POST",
-      headers : { "Content-Type": "application/json" },
-      body : JSON.stringify({ email, password }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {

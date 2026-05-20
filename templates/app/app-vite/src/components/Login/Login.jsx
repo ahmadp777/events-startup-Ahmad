@@ -1,7 +1,3 @@
-// TODO: build a login form with relevant fields
-// TODO: call login(email, password) from useAuth() on submit
-// TODO: show a clear error message if login fails
-// TODO: redirect to the event list on success
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -13,8 +9,11 @@ export default function Login() {
   const location = useLocation();
   const redirectTo = location.state?.from?.pathname || "/events";
   const wasRedirected = !!location.state?.from;
+  const redirectMessage =
+    location.state?.authMessage || "You must be logged in to access that page.";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
 
@@ -49,7 +48,7 @@ export default function Login() {
             maxWidth: "360px",
           }}
         >
-          You must be logged in to access that page.
+          {redirectMessage}
         </p>
       )}
       <form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: "360px" }}>
@@ -66,19 +65,31 @@ export default function Login() {
         <label htmlFor="login-password">Password</label>
         <input
           id="login-password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           style={{ width: "100%", margin: "8px 0 14px", padding: "8px" }}
         />
 
-        <button type="submit">Sign in</button>
+        <button
+          type="button"
+          onClick={() => setShowPassword((previousValue) => !previousValue)}
+          style={{ marginRight: "20px" }}
+        >
+          {showPassword ? "Hide password" : "Show password"}
+        </button>
+
+        <button 
+          type="submit"
+          style={{ marginRight: "20px" }}
+        >
+          Sign in
+        </button>
 
         <button
           type="button"
           onClick={() => navigate("/register", { state: { from: location.state?.from } })}
-          style={{ marginLeft: "12px" }}
         >
           Register
         </button>
