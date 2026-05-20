@@ -321,7 +321,8 @@ body {
 }
 
 .account-page,
-.orders-page {
+.orders-page,
+.order-detail-page {
   background: #ffffff;
   border: 1px solid #dbe2ef;
   border-radius: 14px;
@@ -330,9 +331,15 @@ body {
 }
 
 .account-page h1,
-.orders-page h1 {
+.orders-page h1,
+.order-detail-page h1 {
   margin-top: 0;
   margin-bottom: 16px;
+}
+
+.order-detail-page h2 {
+  margin-top: 24px;
+  margin-bottom: 12px;
 }
 
 .account-info {
@@ -366,6 +373,29 @@ body {
 }
 
 .orders-list p {
+  margin: 4px 0;
+}
+
+.ticket-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.ticket-item h3 {
+  margin: 0 0 8px;
+}
+
+.ticket-item p {
   margin: 4px 0;
 }
 

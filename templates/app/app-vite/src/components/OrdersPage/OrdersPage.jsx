@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../api.js";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -93,6 +94,11 @@ export default function OrdersPage() {
                   </p>
                   <p>Total: {Number(order.total || 0) === 0 ? "Free" : `€${Number(order.total || 0)}`}</p>
                   <p>Tickets: {Array.isArray(order.items) ? order.items.reduce((sum, item) => sum + Number(item.quantity || 0), 0) : 0}</p>
+                  <p>
+                    <Link to={`/orders/${order.id}`} className="link">
+                      View order details
+                    </Link>
+                  </p>
                   <button
                     type="button"
                     className="order-remove-btn"

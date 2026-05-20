@@ -145,7 +145,21 @@
   ],
   "orders": [
     {
-      "createdAt": "2026-05-20T20:39:01.841Z",
+      "createdAt": "2026-05-20T23:03:08.373Z",
+      "userId": 1,
+      "items": [
+        {
+          "eventId": 3,
+          "name": "JavaScript: Modern Patterns Workshop",
+          "price": 79,
+          "quantity": 2
+        }
+      ],
+      "total": 158,
+      "id": 1
+    },
+    {
+      "createdAt": "2026-05-20T23:07:40.481Z",
       "userId": 1,
       "items": [
         {
@@ -153,10 +167,16 @@
           "name": "TypeScript Deep Dive",
           "price": 89,
           "quantity": 2
+        },
+        {
+          "eventId": 5,
+          "name": "Copenhagen JS Meetup",
+          "price": 0,
+          "quantity": 2
         }
       ],
       "total": 178,
-      "id": 1
+      "id": 2
     }
   ]
 }
