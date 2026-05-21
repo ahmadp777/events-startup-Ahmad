@@ -16,18 +16,41 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    const normalizedEmail = email.trim();
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
+
     setError(null);
     setSuccess("");
 
+    if (!isEmailValid) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password should be at least 6 characters.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      await login(email, password);
+      await login(normalizedEmail, password);
       setSuccess("Login successful. Redirecting...");
       navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message || "Login failed");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -56,6 +79,7 @@ export default function Login() {
         <input
           id="login-email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -66,8 +90,10 @@ export default function Login() {
         <input
           id="login-password"
           type={showPassword ? "text" : "password"}
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          minLength={6}
           required
           style={{ width: "100%", margin: "8px 0 14px", padding: "8px" }}
         />
@@ -75,6 +101,7 @@ export default function Login() {
         <button
           type="button"
           onClick={() => setShowPassword((previousValue) => !previousValue)}
+          disabled={isSubmitting}
           style={{ marginRight: "20px" }}
         >
           {showPassword ? "Hide password" : "Show password"}
@@ -82,13 +109,15 @@ export default function Login() {
 
         <button 
           type="submit"
+          disabled={isSubmitting}
           style={{ marginRight: "20px" }}
         >
-          Sign in
+          {isSubmitting ? "Signing in..." : "Sign in"}
         </button>
 
         <button
           type="button"
+          disabled={isSubmitting}
           onClick={() => navigate("/register", { state: { from: location.state?.from } })}
         >
           Register

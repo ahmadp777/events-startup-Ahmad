@@ -41,11 +41,17 @@ export function AuthProvider({ children }) {
       body: JSON.stringify({ email, password }),
     });
 
+    const data = await response.json().catch(() => ({}));
+
     if (!response.ok) {
+      throw new Error(data.message || "Registration failed");
+    }
+
+    const { accessToken, user } = data;
+    if (!accessToken || !user) {
       throw new Error("Registration failed");
     }
 
-    const { accessToken, user } = await response.json();
     persist(accessToken, user);
   }
 
