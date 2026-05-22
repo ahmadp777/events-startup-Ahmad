@@ -1,11 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import events from "../../data/events.js";
+import api from "../../api.js";
 
 export default function EventDetail() {
   const { id } = useParams();
-  const event = events.find((item) => item.id === Number(id));
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    fetch(api(`/events/${id}`))
+      .then((res) => res.json())
+      .then((data) => {
+        setEvent(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [id]);
+
+
+  if (loading) return <p>Loading event...</p>;
+  if (error) return <p>Something went wrong: {error}</p>;
 
   if (!event) {
     return (

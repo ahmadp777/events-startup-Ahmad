@@ -46,8 +46,12 @@ export default function Layout() {
             </>
           )}
 
-          <Link to="/login" className="link">Login</Link>
-          <Link to="/register" className="link">Register</Link>
+          {!user && (
+            <>
+              <Link to="/login" className="link">Login</Link>
+              <Link to="/register" className="link">Register</Link>
+            </>
+          )}
         </nav>
       </header>
 
