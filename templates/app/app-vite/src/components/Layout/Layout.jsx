@@ -51,7 +51,7 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, width: "100%", padding: "24px 20px" }}>
+      <main style={{ flex: 1, width: "100%", padding: "10px 20px" }}>
         <section style={{ width: "100%", maxWidth: "700px", margin: "0 auto" }}>
           <Outlet />
         </section>
