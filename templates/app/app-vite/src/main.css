@@ -27,6 +27,21 @@ body {
   text-decoration: underline;
 }
 
+.nav-button {
+  background: rgb(249, 166, 160);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #1e3a8a;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
 .event-list {
   list-style: none;
   margin: 0;

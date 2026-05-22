@@ -148,26 +148,5 @@
       "category": "Workshop"
     }
   ],
-  "orders": [
-    {
-      "createdAt": "2026-05-20T23:07:40.481Z",
-      "userId": 1,
-      "items": [
-        {
-          "eventId": 4,
-          "name": "TypeScript Deep Dive",
-          "price": 89,
-          "quantity": 2
-        },
-        {
-          "eventId": 5,
-          "name": "Copenhagen JS Meetup",
-          "price": 0,
-          "quantity": 2
-        }
-      ],
-      "total": 178,
-      "id": 2
-    }
-  ]
+  "orders": []
 }

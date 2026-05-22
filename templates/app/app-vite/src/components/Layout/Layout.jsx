@@ -33,49 +33,66 @@ export default function Layout() {
           style={{
             width: "100%",
             display: "flex",
-            gap: "20px",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             alignItems: "center",
             padding: "10px 20px",
           }}
         >
-          <img
-            src={vioappslogo}
-            alt="VioApps logo"
-            className="logo"
-            width={110}
-            style={{ padding: "20px" }}
-          />
-          {/* Navigation links go here — e.g. link to event list, cart, login */}
-          <Link to="/" className="link">
-            Home
-          </Link>
-          <Link to="/events" className="link">
-            Events
-          </Link>
-          <Link to="/cart" className="link">
-            Cart ({cartCount})
-          </Link>
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <img
+              src={vioappslogo}
+              alt="VioApps logo"
+              className="logo"
+              width={110}
+              style={{ padding: "20px" }}
+            />
+            {/* Navigation links go here — e.g. link to event list, cart, login */}
+            <Link to="/" className="link">
+              Home
+            </Link>
+            <Link to="/events" className="link">
+              Events
+            </Link>
+            <Link to="/cart" className="link">
+              Cart ({cartCount})
+            </Link>
 
-          {user && (
-            <>
-              <span>{user.email}</span>
-              <Link to="/account" className="link">
-                Account
-              </Link>
-              <Link to="/orders" className="link">
-                Orders
-              </Link>
-              <button onClick={logout}>Sign out</button>
-            </>
-          )}
+            {user && (
+              <>
+                <Link to="/account" className="link">
+                  Account
+                </Link>
+                <Link to="/orders" className="link">
+                  Orders
+                </Link>
+              </>
+            )}
+          </div>
 
-          {!user && (
-            <>
-              <Link to="/login" className="link">Login</Link>
-              <Link to="/register" className="link">Register</Link>
-            </>
-          )}
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            {user && (
+              <>
+                <span className="link">{user.email}</span>
+                <button
+                  onClick={logout}
+                  className="link nav-button"
+                >
+                  Sign out
+                </button>
+              </>
+            )}
+
+            {!user && (
+              <>
+                <Link to="/login" className="link">
+                  Login
+                </Link>
+                <Link to="/register" className="link">
+                  Register
+                </Link>
+              </>
+            )}
+          </div>
         </nav>
       </header>
 
