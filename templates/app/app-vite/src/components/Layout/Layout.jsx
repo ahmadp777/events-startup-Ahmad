@@ -1,37 +1,40 @@
 import { Link, Outlet } from "react-router-dom";
-import hyfLogo from "../../assets/hyf.svg";
+import vioappslogo from "../../assets/vioapps-logo.png";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function Layout() {
   const { user, logout } = useAuth();
 
   return (
-    <div>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <header>
         <nav
           style={{
             width: "100%",
             display: "flex",
             gap: "20px",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "center",
             padding: "10px 20px",
           }}
         >
-          <a
-            href="https://www.hackyourfuture.dk/"
-            target="_blank"
-            className="link"
-          >
-            <img
-              src={hyfLogo}
-              alt="HackYourFuture logo"
-              className="logo"
-              width={200}
-              style={{ padding: "20px" }}
-            />
-          </a>
+          <img
+            src={vioappslogo}
+            alt="VioApps logo"
+            className="logo"
+            width={170}
+            style={{ padding: "20px" }}
+          />
           {/* Navigation links go here — e.g. link to event list, cart, login */}
+          <Link to="/" className="link">
+            Home
+          </Link>
           <Link to="/events" className="link">
             Events
           </Link>
@@ -43,16 +46,26 @@ export default function Layout() {
             </>
           )}
 
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+          <Link to="/login" className="link">Login</Link>
+          <Link to="/register" className="link">Register</Link>
         </nav>
       </header>
 
-      <main>
-        <Outlet />
+      <main style={{ flex: 1, width: "100%", padding: "24px 20px" }}>
+        <section style={{ width: "100%", maxWidth: "700px", margin: "0 auto" }}>
+          <Outlet />
+        </section>
       </main>
 
-      <footer>{/* Footer content goes here */}</footer>
+      <footer
+        style={{
+          borderTop: "1px solid #d9d9d9",
+          padding: "16px 20px",
+          textAlign: "center",
+        }}
+      >
+        Copyright 2026 VioApps. All rights reserved.
+      </footer>
     </div>
   );
 }
