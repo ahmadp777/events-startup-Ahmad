@@ -7,6 +7,7 @@ export default function Layout() {
   const { user, logout } = useAuth();
   const { cartItems } = useCart();
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const currentYear = new Date().getFullYear();
 
   return (
     <div
@@ -91,7 +92,7 @@ export default function Layout() {
           textAlign: "center",
         }}
       >
-        Copyright 2026 VioApps. All rights reserved.
+        &copy; {currentYear} VioApps. All rights reserved.
       </footer>
     </div>
   );

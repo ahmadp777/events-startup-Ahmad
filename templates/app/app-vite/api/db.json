@@ -9,6 +9,11 @@
       "email": "test_283797693@example.com",
       "password": "$2a$10$4HiQ91.rENnduadIf59f6OSKtswKPobcihWQfmNaE4TqzfHG8NBnm",
       "id": 2
+    },
+    {
+      "email": "aaa@gmail.com",
+      "password": "$2a$10$rHEQhrNznyDCMqqP.jVu1Oet/C3wjdGgmNXHVlz/iVr6XiA.dlAD6",
+      "id": 3
     }
   ],
   "events": [

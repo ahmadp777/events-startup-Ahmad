@@ -39,20 +39,24 @@ export default function EventDetail() {
   }
 
   const soldOut = event.ticketsAvailable === 0;
+  const venue = event.venue;
+  const city = event.city;
+  const category = event.category;
+  const priceLabel = event.price === 0 ? "Free" : `EUR${event.price}`;
+  const availabilityLabel = soldOut
+    ? "Sold out"
+    : `${event.ticketsAvailable} tickets left`;
 
   return (
     <section className="event-detail">
       <h1>{event.name}</h1>
       <p>Date: {event.date}</p>
       <p>Time: {event.time}</p>
-      <p>Venue: {event.venue}</p>
-      <p>City: {event.city}</p>
-      <p>Category: {event.category}</p>
-      <p>Price: {event.price === 0 ? "Free" : `EUR${event.price}`}</p>
-      <p>
-        Availability:{" "}
-        {soldOut ? "Sold out" : `${event.ticketsAvailable} tickets left`}
-      </p>
+      <p>Venue: {venue}</p>
+      <p>City: {city}</p>
+      <p>Category: {category}</p>
+      <p>Price: {priceLabel}</p>
+      <p>Availability: {availabilityLabel}</p>
       
       <button className="cart-button" onClick={() => addToCart(event)} disabled={soldOut}>
         Add to Cart
