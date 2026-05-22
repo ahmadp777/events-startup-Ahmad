@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../api.js";
+import { useCart } from "../../context/CartContext.jsx";
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -8,6 +9,8 @@ export default function EventDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const { addToCart } = useCart();
+
 
   useEffect(() => {
     fetch(api(`/events/${id}`))
@@ -50,6 +53,10 @@ export default function EventDetail() {
         Availability:{" "}
         {soldOut ? "Sold out" : `${event.ticketsAvailable} tickets left`}
       </p>
+      
+      <button className="cart-button" onClick={() => addToCart(event)} disabled={soldOut}>
+        Add to Cart
+      </button>
 
       <div className="description-section">
         <h3>Description</h3>

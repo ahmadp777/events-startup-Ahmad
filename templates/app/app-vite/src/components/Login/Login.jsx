@@ -3,13 +3,16 @@
 // TODO: show a clear error message if login fails
 // TODO: redirect to the event list on success
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useState } from "react";
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from?.pathname || "/events";
+  const wasRedirected = !!location.state?.from;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -23,7 +26,7 @@ export default function Login() {
     try {
       await login(email, password);
       setSuccess("Login successful. Redirecting...");
-      navigate("/events");
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message || "Login failed");
     }
@@ -34,6 +37,21 @@ export default function Login() {
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <h1>Login</h1>
+      {wasRedirected && (
+        <p
+          style={{
+            marginBottom: "16px",
+            padding: "12px",
+            background: "#fef3c7",
+            border: "1px solid #fbbf24",
+            borderRadius: "8px",
+            color: "#92400e",
+            maxWidth: "360px",
+          }}
+        >
+          You must be logged in to access that page.
+        </p>
+      )}
       <form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: "360px" }}>
         <label htmlFor="login-email">Email</label>
         <input
@@ -56,6 +74,14 @@ export default function Login() {
         />
 
         <button type="submit">Sign in</button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/register", { state: { from: location.state?.from } })}
+          style={{ marginLeft: "12px" }}
+        >
+          Register
+        </button>
       </form>
 
       {error && <p style={{ color: "#b91c1c", marginTop: "12px" }}>{error}</p>}
