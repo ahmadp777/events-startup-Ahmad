@@ -3,6 +3,20 @@ import api from "../api.js";
 
 const AuthContext = createContext(null);
 
+function getApiErrorMessage(data, fallbackMessage) {
+  if (!data || typeof data !== "object") return fallbackMessage;
+  if (typeof data.message === "string" && data.message.trim()) {
+    return data.message;
+  }
+  if (typeof data.error === "string" && data.error.trim()) {
+    return data.error;
+  }
+  if (Array.isArray(data.errors) && data.errors.length > 0) {
+    return String(data.errors[0]);
+  }
+  return fallbackMessage;
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const stored = localStorage.getItem("user");
@@ -23,7 +37,7 @@ export function AuthProvider({ children }) {
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      throw new Error(data.message || "Invalid email or password");
+      throw new Error(getApiErrorMessage(data, "Invalid email or password"));
     }
 
     const { accessToken, user } = data;
@@ -35,21 +49,23 @@ export function AuthProvider({ children }) {
   }
 
   async function register(email, password) {
-    // TODO: POST to api("/register") with { email, password }
-    // TODO: if the response is not ok, throw an error
-    // TODO: destructure { accessToken, user } from the response JSON
-    // TODO: call `persist` with accessToken and user to save the session
     const response = await fetch(api("/register"), {
-      method : "POST",
-      headers : { "Content-Type": "application/json" },
-      body : JSON.stringify({ email, password }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
+    const data = await response.json().catch(() => ({}));
+
     if (!response.ok) {
+      throw new Error(getApiErrorMessage(data, "Registration failed"));
+    }
+
+    const { accessToken, user } = data;
+    if (!accessToken || !user) {
       throw new Error("Registration failed");
     }
 
-    const { accessToken, user } = await response.json();
     persist(accessToken, user);
   }
 

@@ -27,6 +27,21 @@ body {
   text-decoration: underline;
 }
 
+.nav-button {
+  background: rgb(249, 166, 160);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #1e3a8a;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
 .event-list {
   list-style: none;
   margin: 0;
@@ -266,7 +281,12 @@ body {
   font-weight: 700;
 }
 
-.cart-summary button {
+.cart-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cart-summary .clear-btn {
   border: 1px solid #ef4444;
   background: #fff1f2;
   color: #b91c1c;
@@ -275,12 +295,49 @@ body {
   cursor: pointer;
 }
 
-.cart-summary button:hover {
+.cart-summary .clear-btn:hover {
   background: #ffe4e6;
 }
 
+.cart-summary .checkout-btn {
+  border: 1px solid #0f766e;
+  background: #0f766e;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.cart-summary .checkout-btn:hover {
+  background: #115e63;
+}
+
+.cart-summary button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.feedback-success {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #86efac;
+  background: #f0fdf4;
+  color: #166534;
+  border-radius: 8px;
+}
+
+.feedback-error {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+  border-radius: 8px;
+}
+
 .account-page,
-.orders-page {
+.orders-page,
+.order-detail-page {
   background: #ffffff;
   border: 1px solid #dbe2ef;
   border-radius: 14px;
@@ -289,9 +346,15 @@ body {
 }
 
 .account-page h1,
-.orders-page h1 {
+.orders-page h1,
+.order-detail-page h1 {
   margin-top: 0;
   margin-bottom: 16px;
+}
+
+.order-detail-page h2 {
+  margin-top: 24px;
+  margin-bottom: 12px;
 }
 
 .account-info {
@@ -328,6 +391,48 @@ body {
   margin: 4px 0;
 }
 
+.ticket-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.ticket-item h3 {
+  margin: 0 0 8px;
+}
+
+.ticket-item p {
+  margin: 4px 0;
+}
+
+.order-remove-btn {
+  margin-top: 10px;
+  border: 1px solid #ef4444;
+  background: #fff1f2;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.order-remove-btn:hover:not(:disabled) {
+  background: #ffe4e6;
+}
+
+.order-remove-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 @media (max-width: 700px) {
   .event-card,
   .event-detail {
@@ -351,5 +456,13 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+
+  .cart-actions {
+    width: 100%;
+  }
+
+  .cart-actions button {
+    flex: 1;
   }
 }

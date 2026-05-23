@@ -1,7 +1,3 @@
-// TODO: build a login form with relevant fields
-// TODO: call login(email, password) from useAuth() on submit
-// TODO: show a clear error message if login fails
-// TODO: redirect to the event list on success
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -13,22 +9,48 @@ export default function Login() {
   const location = useLocation();
   const redirectTo = location.state?.from?.pathname || "/events";
   const wasRedirected = !!location.state?.from;
+  const redirectMessage =
+    location.state?.authMessage || "You must be logged in to access that page.";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    const normalizedEmail = email.trim();
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
+
     setError(null);
     setSuccess("");
 
+    if (!isEmailValid) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password should be at least 6 characters.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      await login(email, password);
+      await login(normalizedEmail, password);
       setSuccess("Login successful. Redirecting...");
       navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message || "Login failed");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -49,7 +71,7 @@ export default function Login() {
             maxWidth: "360px",
           }}
         >
-          You must be logged in to access that page.
+          {redirectMessage}
         </p>
       )}
       <form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: "360px" }}>
@@ -57,6 +79,7 @@ export default function Login() {
         <input
           id="login-email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -66,19 +89,36 @@ export default function Login() {
         <label htmlFor="login-password">Password</label>
         <input
           id="login-password"
-          type="password"
+          type={showPassword ? "text" : "password"}
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          minLength={6}
           required
           style={{ width: "100%", margin: "8px 0 14px", padding: "8px" }}
         />
 
-        <button type="submit">Sign in</button>
+        <button
+          type="button"
+          onClick={() => setShowPassword((previousValue) => !previousValue)}
+          disabled={isSubmitting}
+          style={{ marginRight: "20px" }}
+        >
+          {showPassword ? "Hide password" : "Show password"}
+        </button>
+
+        <button 
+          type="submit"
+          disabled={isSubmitting}
+          style={{ marginRight: "20px" }}
+        >
+          {isSubmitting ? "Signing in..." : "Sign in"}
+        </button>
 
         <button
           type="button"
+          disabled={isSubmitting}
           onClick={() => navigate("/register", { state: { from: location.state?.from } })}
-          style={{ marginLeft: "12px" }}
         >
           Register
         </button>
