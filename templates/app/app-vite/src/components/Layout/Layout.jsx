@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import vioappslogo from "../../assets/vioapps-logo.png";
-import mainBackground from "../../../../../../images/15.png";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 
@@ -108,7 +107,7 @@ export default function Layout() {
           flex: 1,
           width: "100%",
           padding: "150px 20px 10px",
-          backgroundImage: `url(${mainBackground})`,
+          backgroundImage: "url('/15.png')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
           backgroundRepeat: "no-repeat",
