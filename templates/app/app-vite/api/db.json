@@ -14,6 +14,11 @@
       "email": "aaa@gmail.com",
       "password": "$2a$10$rHEQhrNznyDCMqqP.jVu1Oet/C3wjdGgmNXHVlz/iVr6XiA.dlAD6",
       "id": 3
+    },
+    {
+      "email": "aaaa@gmail.com",
+      "password": "$2a$10$IIjsS1UGDu8fEFHyDqVs1uCq8yOQ7U6PkO6mlcE1Jwc9pmZv6toyK",
+      "id": 4
     }
   ],
   "events": [
@@ -148,5 +153,20 @@
       "category": "Workshop"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "createdAt": "2026-05-29T23:05:26.041Z",
+      "userId": 4,
+      "items": [
+        {
+          "eventId": 3,
+          "name": "JavaScript: Modern Patterns Workshop",
+          "price": 79,
+          "quantity": 2
+        }
+      ],
+      "total": 158,
+      "id": 1
+    }
+  ]
 }

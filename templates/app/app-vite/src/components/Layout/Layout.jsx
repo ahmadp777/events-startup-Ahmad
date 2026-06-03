@@ -1,13 +1,20 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import vioappslogo from "../../assets/vioapps-logo.png";
+import mainBackground from "../../../../../../images/15.png";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 
 export default function Layout() {
+  const { pathname } = useLocation();
   const { user, logout } = useAuth();
   const { cartItems } = useCart();
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
 
   return (
     <div
@@ -96,7 +103,17 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, width: "100%", padding: "150px 20px 10px" }}>
+      <main
+        style={{
+          flex: 1,
+          width: "100%",
+          padding: "150px 20px 10px",
+          backgroundImage: `url(${mainBackground})`,
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <section style={{ width: "100%", maxWidth: "700px", margin: "0 auto" }}>
           <Outlet />
         </section>
