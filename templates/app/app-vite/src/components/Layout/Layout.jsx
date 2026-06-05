@@ -25,7 +25,7 @@ export default function Layout() {
     >
       <header
         style={{
-          position: "fixed",
+          position: "sticky",
           top: 0,
           left: 0,
           width: "100%",
@@ -36,52 +36,44 @@ export default function Layout() {
         }}
       >
         <nav
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "10px 20px",
-          }}
+          className="site-nav"
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <div className="site-nav-group site-nav-group-primary">
             <img
               src={vioappslogo}
               alt="VioApps logo"
-              className="logo"
-              width={110}
-              style={{ padding: "20px" }}
+              className="logo site-nav-logo"
             />
             {/* Navigation links go here — e.g. link to event list, cart, login */}
-            <Link to="/" className="link">
+            <Link to="/" className="link site-nav-link">
               Home
             </Link>
-            <Link to="/events" className="link">
+            <Link to="/events" className="link site-nav-link">
               Events
             </Link>
-            <Link to="/cart" className="link">
+            <Link to="/cart" className="link site-nav-link">
               Cart ({cartCount})
             </Link>
 
             {user && (
               <>
-                <Link to="/account" className="link">
+                <Link to="/account" className="link site-nav-link">
                   Account
                 </Link>
-                <Link to="/orders" className="link">
+                <Link to="/orders" className="link site-nav-link">
                   Orders
                 </Link>
               </>
             )}
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <div className="site-nav-group site-nav-group-secondary">
             {user && (
               <>
-                <span className="link">{user.email}</span>
+                <span className="link site-nav-link site-nav-user">{user.email}</span>
                 <button
                   onClick={logout}
-                  className="link nav-button"
+                  className="link nav-button site-nav-link"
                 >
                   Sign out
                 </button>
@@ -90,10 +82,10 @@ export default function Layout() {
 
             {!user && (
               <>
-                <Link to="/login" className="link">
+                <Link to="/login" className="link site-nav-link">
                   Login
                 </Link>
-                <Link to="/register" className="link">
+                <Link to="/register" className="link site-nav-link">
                   Register
                 </Link>
               </>
@@ -106,7 +98,7 @@ export default function Layout() {
         style={{
           flex: 1,
           width: "100%",
-          padding: "150px 20px 10px",
+          padding: "24px 20px 10px",
           backgroundImage: "url('/15.png')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
